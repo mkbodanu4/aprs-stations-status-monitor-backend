@@ -50,7 +50,7 @@ def callback(packet):
                     "INSERT INTO `status`(`call_sign_id`, `date_last_heard`, `path`, `date_refreshed`) VALUES(%s, NOW(), %s, NOW()) ON DUPLICATE KEY UPDATE `date_last_heard`=NOW(), `path` = %s, `date_refreshed` = NOW();",
                     (call_sign_db[0], ','.join(parsed.get('path')), ','.join(parsed.get('path'))))
 
-                print(call_sign + " saved")
+                # print(call_sign + " saved")
 
 
 AIS = aprslib.IS(configuration['aprs']['callsign'], passwd="-1", host=configuration['aprs']['host'], port=14580)
