@@ -49,7 +49,7 @@ def callback(packet):
             if call_sign_db:
                 crs = db.cursor()
                 crs.execute(
-                    "INSERT INTO `status`(`call_sign_id`, `date_last_heard`, `path`, `date_refreshed`) VALUES(%s, NOW(), %s, NOW()) ON DUPLICATE KEY UPDATE `date_last_heard`=NOW(), `path` = %s, `date_refreshed` = NOW();",
+                    "INSERT INTO `status`(`call_sign_id`, `date_last_heard`, `path`, `date_refreshed`) VALUES(%s, UTC_TIMESTAMP(), %s, UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE `date_last_heard`=UTC_TIMESTAMP(), `path` = %s, `date_refreshed` = UTC_TIMESTAMP();",
                     (call_sign_db[0], ','.join(parsed.get('path')), ','.join(parsed.get('path'))))
                 db.commit()
                 crs.close()
