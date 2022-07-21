@@ -1,0 +1,10 @@
+aprs:
+  callsign: 'N0CALL'
+  host: "rotate.aprs2.net"
+  filter: "-p/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/V/W/X/Y/Z/UA/UB/UC/UD/UE/UF/UG/UH/UI/UJ/UK/UL/UM/UN/UO/UP/UQ r/49.81/25.42/294 r/50.03/32.04/294 r/48.66/36.77/294 r/46.97/31.25/294 r/46.53/33.72/294"
+
+mysql:
+  hostname: 'localhost'
+  username: 'root'
+  password: 'a'
+  database: 'igate-status'
