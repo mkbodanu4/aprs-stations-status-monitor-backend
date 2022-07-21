@@ -5,6 +5,7 @@ aprs:
 
 mysql:
   hostname: 'localhost'
+  unix_socket: ''
   username: 'root'
   password: 'a'
   database: 'igate-status'
