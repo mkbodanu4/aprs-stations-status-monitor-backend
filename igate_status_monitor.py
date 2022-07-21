@@ -54,11 +54,11 @@ def callback(packet):
                 db.commit()
                 crs.close()
 
-                print(call_sign + " saved")
-            else:
-                print(call_sign + " ignored")
-    else:
-        print(parsed.get('from') + " ignored")
+                # print(call_sign + " saved")
+            # else:
+                # print(call_sign + " ignored")
+    # else:
+        # print(parsed.get('from') + " ignored")
 
 
 AIS = aprslib.IS(configuration['aprs']['callsign'], passwd="-1", host=configuration['aprs']['host'], port=14580)
