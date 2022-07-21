@@ -26,6 +26,7 @@ crs.execute("SELECT * FROM `call_signs`;")
 result = crs.fetchall()
 for call_sign in result:
     target_call_signs.append(call_sign[1])
+crs.close()
 
 
 def callback(packet):
@@ -43,14 +44,21 @@ def callback(packet):
             crs = db.cursor()
             crs.execute("SELECT * FROM `call_signs` WHERE `value` = %s;", (call_sign,))
             call_sign_db = crs.fetchone()
+            crs.close()
 
             if call_sign_db:
                 crs = db.cursor()
                 crs.execute(
                     "INSERT INTO `status`(`call_sign_id`, `date_last_heard`, `path`, `date_refreshed`) VALUES(%s, NOW(), %s, NOW()) ON DUPLICATE KEY UPDATE `date_last_heard`=NOW(), `path` = %s, `date_refreshed` = NOW();",
                     (call_sign_db[0], ','.join(parsed.get('path')), ','.join(parsed.get('path'))))
+                db.commit()
+                crs.close()
 
-                # print(call_sign + " saved")
+                print(call_sign + " saved")
+            else:
+                print(call_sign + " ignored")
+    else:
+        print(parsed.get('from') + " ignored")
 
 
 AIS = aprslib.IS(configuration['aprs']['callsign'], passwd="-1", host=configuration['aprs']['host'], port=14580)
