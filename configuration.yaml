@@ -1,11 +1,11 @@
 aprs:
-  callsign: 'N0CALL'
+  callsign: 'UR5WKM-10'
   host: "rotate.aprs2.net"
-  filter: "-p/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/V/W/X/Y/Z/UA/UB/UC/UD/UE/UF/UG/UH/UI/UJ/UK/UL/UM/UN/UO/UP/UQ r/49.81/25.42/294 r/50.03/32.04/294 r/48.66/36.77/294 r/46.97/31.25/294 r/46.53/33.72/294"
+  filter: "-p/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/V/W/X/Y/Z/UA/UB/UC/UD/UE/UF/UG/UH/UI/UJ/UK/UL/UM/UN/UO/UP/UQ r/49.7/25.35/284 r/49.44/31.5/368 r/48.81/37.79/202 r/47/32.46/388"
 
 logging:
   # Allowed levels: DEBUG, INFO, WARNING, ERROR, CRITICAL
-  level: 'CRITICAL'
+  level: 'INFO'
 
 mysql:
   hostname: 'localhost'

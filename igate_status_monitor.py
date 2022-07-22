@@ -179,9 +179,54 @@ def callback(packet):
 
                 logging.info("Call sign " + call_sign + " data updated")
             else:
-                logging.info("Call sign " + call_sign + " data ignored")
+                logging.warning("Call sign " + call_sign + " not found in database")
     else:
-        logging.info("Call signs " + ', '.join(test_call_signs) + " ignored")
+        if len(parsed.get('path')) >= 2:
+            q = parsed.get('path')[-2]
+            if q in ['qAR', 'qAO', 'qAo']:
+                query = """
+                        INSERT INTO
+                            `proposals` (
+                                `call_sign`,
+                                `date`,
+                                `from`,
+                                `path`,
+                                `comment`
+                            )
+                        VALUES
+                            (
+                                %s,
+                                UTC_TIMESTAMP(),
+                                %s,
+                                %s,
+                                %s
+                            )
+                        ON DUPLICATE KEY
+                            UPDATE
+                                `from`= %s,
+                                `path`= %s,
+                                `comment`= %s
+                    ;"""
+                params = (
+                    parsed.get('via'),
+                    parsed.get('from'),
+                    ','.join(parsed.get('path')),
+                    parsed.get('comment'),
+                    parsed.get('from'),
+                    ','.join(parsed.get('path')),
+                    parsed.get('comment')
+                )
+
+                crs = db.cursor()
+                crs.execute(query, params)
+                db.commit()
+                crs.close()
+
+                logging.info("Call sign " + parsed.get('via') + " saved to proposals")
+            else:
+                logging.info("Call sign " + ', '.join(test_call_signs) + " ignored")
+        else:
+            logging.info("Call signs " + ', '.join(test_call_signs) + " ignored")
 
 
 AIS = aprslib.IS(configuration['aprs']['callsign'], passwd="-1", host=configuration['aprs']['host'], port=14580)
