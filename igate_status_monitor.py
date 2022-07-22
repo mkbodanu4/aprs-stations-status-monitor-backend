@@ -66,59 +66,111 @@ def callback(packet):
             crs.close()
 
             if call_sign_db:
-                query = """
-                    INSERT INTO
-                        `status` (
-                            `call_sign_id`,
-                            `date`,
-                            `from`,
-                            `via`,
-                            `path`,
-                            `symbol`,
-                            `symbol_table`,
-                            `latitude`,
-                            `longitude`
-                        )
-                    VALUES
-                        (
-                            %s,
-                            UTC_TIMESTAMP(),
-                            %s,
-                            %s,
-                            %s,
-                            %s,
-                            %s,
-                            %s,
-                            %s
-                        )
-                    ON DUPLICATE KEY
-                        UPDATE
-                            `date`=UTC_TIMESTAMP(),
-                            `from` = %s,
-                            `via` = %s,
-                            `path` = %s,
-                            `symbol` = %s,
-                            `symbol_table` = %s,
-                            `latitude` = %s,
-                            `longitude` = %s
-                ;"""
-                params = (
-                    call_sign_db[0],
-                    parsed.get('from'),
-                    parsed.get('via'),
-                    ','.join(parsed.get('path')),
-                    parsed.get('symbol'),
-                    parsed.get('symbol_table'),
-                    parsed.get('latitude'),
-                    parsed.get('longitude'),
-                    parsed.get('from'),
-                    parsed.get('via'),
-                    ','.join(parsed.get('path')),
-                    parsed.get('symbol'),
-                    parsed.get('symbol_table'),
-                    parsed.get('latitude'),
-                    parsed.get('longitude')
-                )
+                # If packet From is equal to target call sign, then record beacon...
+                if parsed.get('from') == call_sign:
+                    query = """
+                                            INSERT INTO
+                                                `status` (
+                                                    `call_sign_id`,
+                                                    `date`,
+                                                    `beacon_date`,
+                                                    `beacon_from`,
+                                                    `beacon_path`,
+                                                    `beacon_symbol`,
+                                                    `beacon_symbol_table`,
+                                                    `beacon_latitude`,
+                                                    `beacon_longitude`
+                                                )
+                                            VALUES
+                                                (
+                                                    %s,
+                                                    UTC_TIMESTAMP(),
+                                                    UTC_TIMESTAMP(),
+                                                    %s,
+                                                    %s,
+                                                    %s,
+                                                    %s,
+                                                    %s,
+                                                    %s
+                                                )
+                                            ON DUPLICATE KEY
+                                                UPDATE
+                                                    `date`=UTC_TIMESTAMP(),
+                                                    `beacon_date`=UTC_TIMESTAMP(),
+                                                    `beacon_from` = %s,
+                                                    `beacon_path` = %s,
+                                                    `beacon_symbol` = %s,
+                                                    `beacon_symbol_table` = %s,
+                                                    `beacon_latitude` = %s,
+                                                    `beacon_longitude` = %s
+                                        ;"""
+                    params = (
+                        call_sign_db[0],
+                        parsed.get('from'),
+                        ','.join(parsed.get('path')),
+                        parsed.get('symbol'),
+                        parsed.get('symbol_table'),
+                        parsed.get('latitude'),
+                        parsed.get('longitude'),
+                        parsed.get('from'),
+                        ','.join(parsed.get('path')),
+                        parsed.get('symbol'),
+                        parsed.get('symbol_table'),
+                        parsed.get('latitude'),
+                        parsed.get('longitude')
+                    )
+                else:  # otherwise record activity...
+                    query = """
+                        INSERT INTO
+                            `status` (
+                                `call_sign_id`,
+                                `date`,
+                                `activity_date`,
+                                `activity_from`,
+                                `activity_path`,
+                                `activity_symbol`,
+                                `activity_symbol_table`,
+                                `activity_latitude`,
+                                `activity_longitude`
+                            )
+                        VALUES
+                            (
+                                %s,
+                                UTC_TIMESTAMP(),
+                                UTC_TIMESTAMP(),
+                                %s,
+                                %s,
+                                %s,
+                                %s,
+                                %s,
+                                %s
+                            )
+                        ON DUPLICATE KEY
+                            UPDATE
+                                `date`=UTC_TIMESTAMP(),
+                                `activity_date`=UTC_TIMESTAMP(),
+                                `activity_from` = %s,
+                                `activity_path` = %s,
+                                `activity_symbol` = %s,
+                                `activity_symbol_table` = %s,
+                                `activity_latitude` = %s,
+                                `activity_longitude` = %s
+                    ;"""
+                    params = (
+                        call_sign_db[0],
+                        parsed.get('from'),
+                        ','.join(parsed.get('path')),
+                        parsed.get('symbol'),
+                        parsed.get('symbol_table'),
+                        parsed.get('latitude'),
+                        parsed.get('longitude'),
+                        parsed.get('from'),
+                        ','.join(parsed.get('path')),
+                        parsed.get('symbol'),
+                        parsed.get('symbol_table'),
+                        parsed.get('latitude'),
+                        parsed.get('longitude')
+                    )
 
                 crs = db.cursor()
                 crs.execute(query, params)
