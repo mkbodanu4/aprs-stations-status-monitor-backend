@@ -13,7 +13,7 @@ You need to have next python libraries installed
 
 ## Installation
 
-1. Upload code to your VPN or server
+1. Upload code to your VPS or server
 2. Update *configuration.yaml* file with your own configuration
 3. Update *assmd.service* file with the proper path to the installation folder.
 4. Copy *assmd.service* file to systemd folder (*/etc/systemd/system/*)
