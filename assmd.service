@@ -1,0 +1,12 @@
+[Unit]
+Description=APRS Stations Status Monitor
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/home/user/aprs-stations-status-monitor-backend
+Type=idle
+ExecStart=/usr/bin/python3 /home/user/aprs-stations-status-monitor-backend/monitor.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

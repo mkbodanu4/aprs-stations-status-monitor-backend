@@ -1,10 +1,12 @@
-# Python IGate Status Monitor
-Python-based APRS-IS service for [Simple IGate Status Monitor](https://github.com/mkbodanu4/simple-igate-status-monitor)
+# APRS Stations Status Monitor Backend 
 
-This app monitors APRS-IS network using configured filters and updates data in [Simple IGate Status Monitor](https://github.com/mkbodanu4/simple-igate-status-monitor) database.
+Python-based APRS-IS data collector of APRS Stations Status Monitor.
+Requires [PHP-based Frontend](https://github.com/mkbodanu4/aprs-stations-status-plugin) for database and configuration.
 
-More details about filters are available [HERE](http://www.aprs-is.net/javAPRSFilter.aspx).
+## Installation
 
-## Running as systemd service
-
-The app could be run as systemd service. Put code into home directory and update *igate_status_monitor.service* file with the proper path. Then copy *igate_status_monitor.service* file to systemd folder (*/etc/systemd/system/*) and start service using *systemctl* command.
+1. Upload code to your VPN or server
+2. Update *configuration.yaml* file with your own configuration
+3. Update *assmd.service* file with the proper path to the installation folder.
+4. Copy *assmd.service* file to systemd folder (*/etc/systemd/system/*)
+5. Enable and start a service named *assmd*.
