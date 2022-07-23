@@ -1,7 +1,7 @@
 # APRS Stations Status Monitor Backend 
 
 Python-based APRS-IS data collector of APRS Stations Status Monitor.
-Requires [PHP-based Frontend](https://github.com/mkbodanu4/aprs-stations-status-plugin) for database and configuration.
+Requires [PHP-based Frontend](https://github.com/mkbodanu4/aprs-stations-status-monitor-frontend) for database and configuration.
 
 ## Installation
 
