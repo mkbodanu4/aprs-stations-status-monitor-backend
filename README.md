@@ -3,6 +3,14 @@
 Python-based APRS-IS data collector of APRS Stations Status Monitor.
 Requires [PHP-based Frontend](https://github.com/mkbodanu4/aprs-stations-status-monitor-frontend) for database and configuration.
 
+## Requirements
+
+You need to have next python libraries installed
+
+* aprslib=0.7.2
+* pyaml=6.0
+* mysql-connector-python=8.0.29
+
 ## Installation
 
 1. Upload code to your VPN or server

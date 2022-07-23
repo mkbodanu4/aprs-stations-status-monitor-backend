@@ -9,7 +9,7 @@ logging:
 
 mysql:
   hostname: 'localhost'
-  unix_socket: ''
+  unix_socket: '/run/mysqld/mysqld.sock'
   username: 'root'
   password: 'a'
-  database: 'igate-status'
+  database: 'aprs_statuses'
