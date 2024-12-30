@@ -1,4 +1,4 @@
-import mysql.connector
+import MySQLdb
 import aprslib
 import yaml
 import logging
@@ -10,14 +10,14 @@ with open("configuration.yaml", 'r') as stream:
 logging.basicConfig(level=configuration['logging']['level'])
 
 if configuration['mysql']['unix_socket']:
-    db = mysql.connector.connect(
+    db = MySQLdb.connect(
         unix_socket=configuration['mysql']['unix_socket'],
         user=configuration['mysql']['username'],
         password=configuration['mysql']['password'],
         database=configuration['mysql']['database'],
     )
 else:
-    db = mysql.connector.connect(
+    db = MySQLdb.connect(
         host=configuration['mysql']['hostname'],
         user=configuration['mysql']['username'],
         password=configuration['mysql']['password'],
